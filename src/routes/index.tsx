@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import heroPortrait from "@/assets/sarnab-portrait.png";
 
 export const Route = createFileRoute("/")({
@@ -13,12 +14,51 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const stats = [
-  { value: "4.5+", label: "Years in performance" },
-  { value: "₹40Cr+", label: "Ad spend managed" },
-  { value: "4×", label: "Avg. ROAS lift" },
-  { value: "12+", label: "Brands scaled" },
+type Stat = {
+  prefix?: string;
+  value: number;
+  decimals?: number;
+  suffix?: string;
+  label: string;
+};
+
+const stats: Stat[] = [
+  { value: 4.5, decimals: 1, suffix: "+", label: "Years in performance" },
+  { prefix: "₹", value: 40, suffix: "Cr+", label: "Ad spend managed" },
+  { value: 4, suffix: "×", label: "Avg. ROAS lift" },
+  { value: 12, suffix: "+", label: "Brands scaled" },
 ];
+
+function useCountUp(target: number, decimals: number, start: boolean, duration = 1600) {
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setV(target * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duration, start]);
+  return v.toFixed(decimals);
+}
+
+function StatCard({ stat, start }: { stat: Stat; start: boolean }) {
+  const display = useCountUp(stat.value, stat.decimals ?? 0, start);
+  return (
+    <div className="bg-card p-8 lg:p-12">
+      <div className="font-display text-5xl lg:text-7xl font-black text-gradient tabular-nums">
+        {stat.prefix}{display}{stat.suffix}
+      </div>
+      <div className="mt-3 text-sm text-muted-foreground">{stat.label}</div>
+    </div>
+  );
+}
+
 
 const industries = ["Edtech", "Real Estate", "E-commerce", "D2C", "SaaS", "Fintech"];
 
