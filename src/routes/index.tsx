@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroPortrait from "@/assets/hero-portrait.jpg";
+import heroPortrait from "@/assets/sarnab-portrait.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,7 +60,7 @@ function Home() {
                 src={heroPortrait}
                 alt="Sarnab Das, performance marketer"
                 width={1024}
-                height={1280}
+                height={1024}
                 className="w-full h-full object-cover"
               />
               <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md bg-background/60 border border-border rounded-xl p-4">
