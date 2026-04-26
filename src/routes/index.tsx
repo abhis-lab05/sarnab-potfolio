@@ -63,6 +63,18 @@ function StatCard({ stat, start }: { stat: Stat; start: boolean }) {
 const industries = ["Edtech", "Real Estate", "E-commerce", "D2C", "SaaS", "Fintech"];
 
 function Home() {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [statsVisible, setStatsVisible] = useState(false);
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && setStatsVisible(true),
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
     <div>
       {/* HERO */}
@@ -138,12 +150,9 @@ function Home() {
             Every campaign starts with a hypothesis and ends with a number. I don't chase vanity metrics — I build systems where every rupee is accountable to revenue.
           </p>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+        <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden border border-border">
           {stats.map((s) => (
-            <div key={s.label} className="bg-card p-8 lg:p-12">
-              <div className="font-display text-5xl lg:text-7xl font-black text-gradient">{s.value}</div>
-              <div className="mt-3 text-sm text-muted-foreground">{s.label}</div>
-            </div>
+            <StatCard key={s.label} stat={s} start={statsVisible} />
           ))}
         </div>
       </section>
