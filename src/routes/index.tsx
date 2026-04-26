@@ -26,6 +26,7 @@ const industries = ["Edtech", "Real Estate", "E-commerce", "D2C", "SaaS", "Finte
 function Home() {
   return (
     <div>
+      <PortfolioSummary />
       {/* HERO */}
       <section className="relative overflow-hidden grain">
         <div
