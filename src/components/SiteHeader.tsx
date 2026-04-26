@@ -16,13 +16,13 @@ export function SiteHeader() {
           <span className="w-2 h-2 rounded-full bg-primary glow group-hover:scale-150 transition-transform" />
           <span className="font-display font-bold text-lg tracking-tight">Sarnab Das</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="flex items-center gap-0.5 sm:gap-1">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full"
-              activeProps={{ className: "px-4 py-2 text-sm text-foreground rounded-full bg-secondary" }}
+              className="px-2.5 sm:px-4 py-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full"
+              activeProps={{ className: "px-2.5 sm:px-4 py-2 text-xs sm:text-sm text-foreground rounded-full bg-secondary" }}
               activeOptions={{ exact: true }}
             >
               {l.label}
@@ -31,7 +31,7 @@ export function SiteHeader() {
         </nav>
         <Link
           to="/contact"
-          className="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:scale-105 transition-transform"
+          className="hidden lg:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:scale-105 transition-transform"
         >
           Let's talk →
         </Link>
