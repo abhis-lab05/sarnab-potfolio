@@ -25,7 +25,7 @@ type Stat = {
 const stats: Stat[] = [
   { value: 4.5, decimals: 1, suffix: "+", label: "Years in performance" },
   { prefix: "₹", value: 40, suffix: "Cr+", label: "Ad spend managed" },
-  { value: 4, suffix: "×", label: "Avg. ROAS lift" },
+  { value: 6, suffix: "+", label: "Industries served" },
   { value: 12, suffix: "+", label: "Brands scaled" },
 ];
 
